@@ -1,0 +1,95 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion "29.0.0"
+    defaultConfig {
+        applicationId "com.systango.mvvm"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "0.0.1"
+        testInstrumentationRunner rootProject.ext.testInstrumentationRunner
+    }
+
+    flavorDimensions "environment"
+    productFlavors {
+        dev {
+            dimension "environment"
+            buildConfigField 'String', 'SAMPLE_BUILD_CONFIG_FIELD', '"build-config-value-here"'
+            versionNameSuffix "-dev"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "MVVM Boilerplate - dev"
+        }
+
+        qa {
+            dimension "environment"
+            buildConfigField 'String', 'SAMPLE_BUILD_CONFIG_FIELD', '"build-config-value-here"'
+            versionNameSuffix "-test"
+            applicationIdSuffix ".test"
+            resValue "string", "app_name", "MVVM Boilerplate - test"
+        }
+
+        staging {
+            dimension "environment"
+            buildConfigField 'String', 'SAMPLE_BUILD_CONFIG_FIELD', '"build-config-value-here"'
+            versionNameSuffix "-staging"
+            applicationIdSuffix ".staging"
+            resValue "string", "app_name", "MVVM Boilerplate - stage"
+        }
+
+        prod {
+            dimension "environment"
+            buildConfigField 'String', 'SAMPLE_BUILD_CONFIG_FIELD', '"build-config-value-here"'
+            resValue "string", "app_name", "MVVM Boilerplate"
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'Boolean', 'IS_DEBUG', 'true'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'Boolean', 'IS_DEBUG', 'false'
+        }
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //Unit testing
+    testImplementation rootProject.ext.junit
+    androidTestImplementation rootProject.ext.androidTestRunner
+    androidTestImplementation rootProject.ext.espresso
+
+    //UI and Support
+    implementation rootProject.ext.constraintLayout
+    implementation rootProject.ext.appCompat
+    implementation rootProject.ext.androidXCore
+
+    //Internal modules
+    implementation project(path: ':analytics')
+    implementation project(path: ':sociallogin')
+    implementation project(path: ':customview')
+}
