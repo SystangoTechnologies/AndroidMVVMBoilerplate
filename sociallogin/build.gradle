@@ -1,4 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
@@ -37,4 +40,5 @@ dependencies {
     implementation rootProject.ext.appCompat
     implementation rootProject.ext.androidXCore
     implementation rootProject.ext.facebookLogin
+    implementation rootProject.ext.playServiceAuth
 }

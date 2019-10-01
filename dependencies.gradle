@@ -16,4 +16,5 @@ ext {
     appCompat = "androidx.appcompat:appcompat:$androidXVersion"
     androidXCore = "androidx.core:core-ktx:$androidXVersion"
     facebookLogin = "com.facebook.android:facebook-login:5.5.1"
+    playServiceAuth = "com.google.android.gms:play-services-auth:17.0.0"
 }
