@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'io.fabric'
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion "29.0.0"
@@ -14,6 +16,8 @@ android {
         versionCode 1
         versionName "0.0.1"
         testInstrumentationRunner rootProject.ext.testInstrumentationRunner
+
+        manifestPlaceholders = [fabricApiKey: "6cab916b68d33ff6c64da657ea06859792c07969"]
     }
 
     flavorDimensions "environment"
@@ -87,6 +91,8 @@ dependencies {
     implementation rootProject.ext.constraintLayout
     implementation rootProject.ext.appCompat
     implementation rootProject.ext.androidXCore
+
+    implementation rootProject.ext.crashlytics
 
     //Internal modules
     implementation project(path: ':analytics')
