@@ -16,6 +16,8 @@ android {
         versionCode 1
         versionName "0.0.1"
         testInstrumentationRunner rootProject.ext.testInstrumentationRunner
+
+        manifestPlaceholders = [fabricApiKey: "6cab916b68d33ff6c64da657ea06859792c07969"]
     }
 
     flavorDimensions "environment"

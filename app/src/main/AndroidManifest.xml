@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="6cab916b68d33ff6c64da657ea06859792c07969" />
+            android:value="${fabricApiKey}" />
 
         <activity android:name=".scene.MainActivity">
             <intent-filter>
