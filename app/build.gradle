@@ -92,10 +92,16 @@ dependencies {
     implementation rootProject.ext.appCompat
     implementation rootProject.ext.androidXCore
 
+    // crash report module (crashlytics)
     implementation rootProject.ext.crashlytics
+
+    // firebase cloud messaging
+    implementation rootProject.ext.fcm
 
     //Internal modules
     implementation project(path: ':analytics')
     implementation project(path: ':sociallogin')
     implementation project(path: ':customview')
 }
+
+apply plugin: 'com.google.gms.google-services'
