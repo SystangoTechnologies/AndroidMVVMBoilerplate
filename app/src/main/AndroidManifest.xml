@@ -3,6 +3,7 @@
     package="com.systango.mvvm">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MvvmApplication"
         android:allowBackup="true"
@@ -11,6 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".fcm.FcmMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="${fabricApiKey}" />
