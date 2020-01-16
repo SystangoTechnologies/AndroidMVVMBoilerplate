@@ -84,6 +84,7 @@ dependencies {
 
     //Unit testing
     testImplementation rootProject.ext.junit
+    testImplementation rootProject.ext.mockito
     androidTestImplementation rootProject.ext.androidTestRunner
     androidTestImplementation rootProject.ext.espresso
 
