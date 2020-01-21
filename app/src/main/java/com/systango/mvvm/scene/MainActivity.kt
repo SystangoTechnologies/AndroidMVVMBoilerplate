@@ -2,9 +2,14 @@ package com.systango.mvvm.scene
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.systango.mvvm.R
+import com.systango.mvvm.data.model.MovieResponseModel
+import com.systango.mvvm.data.viewmodel.MovieListViewModel
 import com.systango.sociallogin.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,6 +23,13 @@ class MainActivity : AppCompatActivity(), SocialAuthenticationCallback, View.OnC
         setContentView(R.layout.activity_main)
         fbButton.setOnClickListener(this)
         googleButton.setOnClickListener(this)
+        val get = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
+        get.init()
+        get.getMoveLiveData().observe(this,
+            Observer<MovieResponseModel> {
+                //handle reponse and upate UI
+                Log.v("DATA", it.data.toString())
+            })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
