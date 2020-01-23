@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.systango.mvvm.R
-import com.systango.mvvm.data.model.MovieResponseModel
+import com.systango.mvvm.data.model.MovieData
+import com.systango.mvvm.data.network.ApiObserver
 import com.systango.mvvm.data.viewmodel.MovieListViewModel
 import com.systango.sociallogin.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,13 +23,24 @@ class MainActivity : AppCompatActivity(), SocialAuthenticationCallback, View.OnC
         setContentView(R.layout.activity_main)
         fbButton.setOnClickListener(this)
         googleButton.setOnClickListener(this)
-        val get = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
-        get.init()
-        get.getMoveLiveData().observe(this,
-            Observer<MovieResponseModel> {
-                //handle reponse and upate UI
-                Log.v("DATA", it.data.toString())
-            })
+        val vieModel = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
+        val listener = object : ApiObserver.ChangeListener<List<MovieData>> {
+            override fun onSuccess(dataWrapper: List<MovieData>) {
+                Log.v("DATA", "" + dataWrapper.size)
+            }
+
+            override fun onException(exception: Exception) {
+            }
+
+            override fun onError(error: String) {
+            }
+
+        }
+        vieModel.getMovies().observe(
+            this,
+            ApiObserver(listener)
+        )
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

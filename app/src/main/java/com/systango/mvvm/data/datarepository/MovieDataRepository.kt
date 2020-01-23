@@ -1,31 +1,22 @@
 package com.systango.mvvm.data.datarepository
 
-import androidx.lifecycle.MutableLiveData
-import com.systango.mvvm.data.model.MovieResponseModel
+import androidx.lifecycle.LiveData
+import com.systango.mvvm.data.model.MovieData
 import com.systango.mvvm.data.network.ApiClient
+import com.systango.mvvm.data.network.DataRepository
+import com.systango.mvvm.data.network.DataWrapper
+import com.systango.mvvm.data.network.GenericResponse
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
-object MovieDataRepository {
+class MovieDataRepository : DataRepository<List<MovieData>>() {
 
-    fun getMovies(): MutableLiveData<MovieResponseModel> {
-        val data = MutableLiveData<MovieResponseModel>()
-        val apiService = ApiClient.getApiService()
-        apiService.movies().enqueue(object : Callback<MovieResponseModel> {
-            override fun onFailure(call: Call<MovieResponseModel>, t: Throwable) {
-                data.value = null
-            }
+    override fun makeRequest(): Call<GenericResponse<List<MovieData>>> {
+        // add params and other information here
+        return ApiClient.getApiService().movies()
+    }
 
-            override fun onResponse(
-                call: Call<MovieResponseModel>,
-                response: Response<MovieResponseModel>
-            ) {
-                data.value = response.body()
-            }
-
-        })
-        return data
+    fun getMovies(): LiveData<DataWrapper<List<MovieData>>> {
+        return doRequest()
     }
 }
