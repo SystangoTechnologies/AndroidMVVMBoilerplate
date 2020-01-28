@@ -24,4 +24,6 @@ ext {
     retrofit = "com.squareup.retrofit2:retrofit:2.7.1"
     retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:2.7.1"
     okhttpLog = "com.squareup.okhttp3:logging-interceptor:3.14.0"
+    dagger = "com.google.dagger:dagger:2.25.4"
+    daggerKapt = "com.google.dagger:dagger-compiler:2.25.4"
 }

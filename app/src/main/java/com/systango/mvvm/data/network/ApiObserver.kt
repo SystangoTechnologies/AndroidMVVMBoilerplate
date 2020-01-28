@@ -3,7 +3,8 @@ package com.systango.mvvm.data.network
 import androidx.lifecycle.Observer
 
 
-open class ApiObserver<T>(private val changeListener: ChangeListener<T>) : Observer<DataWrapper<T>> {
+open class ApiObserver<T>(private val changeListener: ChangeListener<T>) :
+    Observer<DataWrapper<T>> {
     override fun onChanged(tDataWrapper: DataWrapper<T>?) {
         if (tDataWrapper != null) {
             if (tDataWrapper.data != null) {
