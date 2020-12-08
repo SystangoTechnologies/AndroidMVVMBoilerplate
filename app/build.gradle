@@ -5,10 +5,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'io.fabric'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion "29.0.0"
+    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.systango.mvvm"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -28,6 +29,7 @@ android {
             versionNameSuffix "-dev"
             applicationIdSuffix ".dev"
             resValue "string", "app_name", "MVVM Boilerplate - dev"
+            buildConfigField "String", 'BASE_URL', '"https://s3.eu-west-2.amazonaws.com/ios-movies/"'
         }
 
         qa {
@@ -36,6 +38,7 @@ android {
             versionNameSuffix "-test"
             applicationIdSuffix ".test"
             resValue "string", "app_name", "MVVM Boilerplate - test"
+            buildConfigField "String", 'BASE_URL', '"https://s3.eu-west-2.amazonaws.com/ios-movies/"'
         }
 
         staging {
@@ -44,12 +47,14 @@ android {
             versionNameSuffix "-staging"
             applicationIdSuffix ".staging"
             resValue "string", "app_name", "MVVM Boilerplate - stage"
+            buildConfigField "String", 'BASE_URL', '"https://s3.eu-west-2.amazonaws.com/ios-movies/"'
         }
 
         prod {
             dimension "environment"
             buildConfigField 'String', 'SAMPLE_BUILD_CONFIG_FIELD', '"build-config-value-here"'
             resValue "string", "app_name", "MVVM Boilerplate"
+            buildConfigField "String", 'BASE_URL', '"https://s3.eu-west-2.amazonaws.com/ios-movies/"'
         }
     }
 
@@ -103,6 +108,16 @@ dependencies {
     implementation project(path: ':analytics')
     implementation project(path: ':sociallogin')
     implementation project(path: ':customview')
+
+    //life-cycle and view model component
+    implementation rootProject.ext.lifeCycleExt
+
+    // retrofit and gson converter
+    implementation rootProject.ext.retrofit
+    implementation rootProject.ext.retrofitGsonConverter
+    implementation rootProject.ext.okhttpLog
+    implementation rootProject.ext.dagger
+    kapt rootProject.ext.daggerKapt
 }
 
 apply plugin: 'com.google.gms.google-services'
