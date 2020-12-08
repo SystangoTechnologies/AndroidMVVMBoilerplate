@@ -19,4 +19,5 @@ ext {
     playServiceAuth = "com.google.android.gms:play-services-auth:17.0.0"
     crashlytics = "com.crashlytics.sdk.android:crashlytics:2.10.1"
     fcm = "com.google.firebase:firebase-messaging:20.0.0"
+    mockito="org.mockito:mockito-core:3.2.4"
 }
