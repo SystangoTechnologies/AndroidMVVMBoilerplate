@@ -1,3 +1,5 @@
 <resources>
     <string name="default_notification_channel_id">mvvm_channel_1</string>
+    <string name="tv_splash_title">MVVM</string>
+    <string name="tv_splash_sub_title">BoilerPlate</string>
 </resources>
