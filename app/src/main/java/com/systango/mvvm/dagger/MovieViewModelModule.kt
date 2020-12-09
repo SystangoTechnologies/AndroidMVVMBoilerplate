@@ -6,11 +6,12 @@ import com.systango.mvvm.data.model.MovieData
 import com.systango.mvvm.data.network.ApiObserver
 import com.systango.mvvm.data.viewmodel.MovieListViewModel
 import com.systango.mvvm.scene.MainActivity
+import com.systango.mvvm.scene.home.HomeFragment
 import dagger.Module
 import dagger.Provides
 
 @Module
-class MovieViewModelModule(private val activity: MainActivity) {
+class MovieViewModelModule(private val activity: HomeFragment) {
     @Provides
     fun provideViewModel(): MovieListViewModel {
         val movieListViewModel = ViewModelProviders.of(activity).get(MovieListViewModel::class.java)
@@ -19,7 +20,7 @@ class MovieViewModelModule(private val activity: MainActivity) {
     }
 
     @Provides
-    fun provideApiObserver(): ApiObserver<List<MovieData>> {
+    fun provideApiObserver(): ApiObserver {
         return ApiObserver(activity)
     }
 }

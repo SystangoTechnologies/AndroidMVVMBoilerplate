@@ -10,7 +10,7 @@ import com.systango.mvvm.data.network.DataWrapper
 class MovieListViewModel : ViewModel() {
     lateinit var repository: MovieDataRepository
 
-    fun getMovies(): LiveData<DataWrapper<List<MovieData>>> {
+    fun getMovies(): LiveData<DataWrapper> {
         return repository.getMovies()
     }
 }

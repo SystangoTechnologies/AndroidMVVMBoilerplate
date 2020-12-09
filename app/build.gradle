@@ -10,6 +10,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion "29.0.2"
+
     defaultConfig {
         applicationId "com.systango.mvvm"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -76,7 +77,9 @@ android {
             enableSplit = false
         }
     }
-
+    dataBinding {
+        enabled = true
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -86,15 +89,17 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'com.intuit.ssp:ssp-android:1.0.5'/*textSize*/
-    implementation 'com.intuit.sdp:sdp-android:1.0.5'
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+    implementation 'com.intuit.ssp:ssp-android:1.0.5'/*textSize*/
+    implementation 'com.intuit.sdp:sdp-android:1.0.5'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+
+
     //Unit testing
     testImplementation rootProject.ext.junit
-    testImplementation rootProject.ext.mockito
     androidTestImplementation rootProject.ext.androidTestRunner
     androidTestImplementation rootProject.ext.espresso
 
@@ -108,11 +113,6 @@ dependencies {
 
     // firebase cloud messaging
     implementation rootProject.ext.fcm
-
-    //Internal modules
-    implementation project(path: ':analytics')
-    implementation project(path: ':sociallogin')
-    implementation project(path: ':customview')
 
     //life-cycle and view model component
     implementation rootProject.ext.lifeCycleExt

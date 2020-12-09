@@ -8,9 +8,9 @@ import retrofit2.Call
 abstract class DataRepository<R> {
     abstract fun makeRequest(): Call<GenericResponse<R>>
 
-    fun doRequest(): LiveData<DataWrapper<R>> {
-        val liveData = MutableLiveData<DataWrapper<R>>()
-        val dataWrapper = DataWrapper<R>()
+    fun doRequest(): LiveData<DataWrapper> {
+        val liveData = MutableLiveData<DataWrapper>()
+        val dataWrapper = DataWrapper()
         makeRequest().enqueue(object : ApiCallback<R>() {
             override fun handleResponseData(genericResponse: GenericResponse<R>) {
                 dataWrapper.data = genericResponse.data
