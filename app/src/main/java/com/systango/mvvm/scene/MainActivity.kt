@@ -1,91 +1,81 @@
 package com.systango.mvvm.scene
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import com.systango.mvvm.R
-import com.systango.mvvm.dagger.DaggerActivityComponent
-import com.systango.mvvm.dagger.MovieViewModelModule
-import com.systango.mvvm.data.model.MovieData
-import com.systango.mvvm.data.network.ApiObserver
-import com.systango.mvvm.data.viewmodel.MovieListViewModel
-import com.systango.sociallogin.*
-import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
+import com.systango.mvvm.scene.base.BackHandlerInterface
+import com.systango.mvvm.scene.base.BaseActivity
+import com.systango.mvvm.scene.base.BaseFragment
+import com.systango.mvvm.scene.home.HomeFragment
+import com.systango.mvvm.utils.AppConstant
+import com.systango.mvvm.utils.FragmentHelper
 
-class MainActivity : AppCompatActivity(), SocialAuthenticationCallback, View.OnClickListener,
-    ApiObserver.ChangeListener<List<MovieData>> {
-
-    @set:Inject
-    internal var movieListViewModel: MovieListViewModel? = null
-    @set:Inject
-    internal var apiObserver: ApiObserver<List<MovieData>>? = null
-    private val facebookAuthentication: SocialAuthentication =
-        FacebookAuthentication(mutableListOf("email", "public_profile"))
-    private val googleAuthentication: SocialAuthentication = GoogleAuthentication()
+class MainActivity : BaseActivity(), BackHandlerInterface {
+    var fragmentCount: Int = AppConstant.BACK_STACK_COUNT_VALUE
+    lateinit var baseFragment: BaseFragment
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val activityComponent =
-            DaggerActivityComponent.builder().movieViewModelModule(MovieViewModelModule(this))
-                .build()
-        activityComponent.inject(this)
-        fbButton.setOnClickListener(this)
-        googleButton.setOnClickListener(this)
-        movieListViewModel!!.getMovies().observe(
-            this,
-            apiObserver!!
-        )
+        openHomeFragment()
+        supportFragmentManager.addOnBackStackChangedListener(getListener())
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == GoogleAuthentication.REQ_CODE)
-            googleAuthentication.onActivityResult(requestCode, resultCode, data)
-        else
-            facebookAuthentication.onActivityResult(requestCode, resultCode, data)
-        super.onActivityResult(requestCode, resultCode, data)
+
+    override fun setSelectedFragment(backHandledFragment: BaseFragment) {
+        baseFragment = backHandledFragment
     }
 
-    override fun onLoginSuccess(
-        socialAuthentication: SocialAuthentication,
-        autnResult: SocialAuthResult
-    ) {
-        if (socialAuthentication is FacebookAuthentication) {
-            // Facebook Auth result
-        } else {
-            // Google Auth result
+    private fun getListener(): FragmentManager.OnBackStackChangedListener {
+        return object : FragmentManager.OnBackStackChangedListener {
+            override fun onBackStackChanged() {
+                val manager = supportFragmentManager
+                if (manager != null) {
+                    val backStackEntryCount = manager.backStackEntryCount
+                    if (backStackEntryCount > AppConstant.BACK_STACK_COUNT_VALUE) {
+                        val backStackEntry = manager.getBackStackEntryAt(backStackEntryCount - 1)
+                        val fragmentTag = backStackEntry.name
+                        if (null != manager.findFragmentByTag(fragmentTag)) {
+                            baseFragment = manager.findFragmentByTag(fragmentTag) as BaseFragment
+                        }
+                        if (baseFragment == null) return
+                        if (null != baseFragment)
+                            baseFragment.onFragmentVisibleToUser()
+
+                        if (backStackEntryCount > fragmentCount) {
+                            fragmentCount = backStackEntryCount
+                            if (null != baseFragment)
+                                baseFragment.onPushCalled()
+
+                        } else if (backStackEntryCount < fragmentCount) {
+                            fragmentCount = backStackEntryCount
+                            if (null != baseFragment)
+                                baseFragment.onPopCalled()
+                        }
+                    }
+                }
+            }
         }
     }
 
-    override fun onLoginError(socialAuthentication: SocialAuthentication, error: SocialAuthError) {
-        if (socialAuthentication is FacebookAuthentication) {
-            // Facebook Auth error
-        } else {
-            // Google Auth error
+
+    override fun onBackPressed() {
+        if (!this::baseFragment.isInitialized || !baseFragment.onBackPressed()) {
+            // Selected fragment did not consume the back press event.
+            val fm = supportFragmentManager
+            val count = fm.backStackEntryCount
+            if (count > AppConstant.BACK_STACK_COUNT_VALUE) {
+                fm.popBackStack()
+            } else {
+                fm.popBackStack()
+                super.onBackPressed()
+            }
         }
     }
 
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.fbButton -> facebookAuthentication.login(this, this)
-            R.id.googleButton -> googleAuthentication.login(this, this)
-        }
-    }
-
-    override fun onSuccess(data: List<MovieData>) {
-        Log.v("DATA", "" + data.size)
-    }
-
-    override fun onException(exception: Exception) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onError(error: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private fun openHomeFragment(){
+        FragmentHelper.addAndInitFragment(HomeFragment.newInstance(),R.id.fragment_container, supportFragmentManager)
     }
 }

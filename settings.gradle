@@ -1,1 +1,1 @@
-include ':app', ':analytics', ':sociallogin', ':customview'
+include ':app'

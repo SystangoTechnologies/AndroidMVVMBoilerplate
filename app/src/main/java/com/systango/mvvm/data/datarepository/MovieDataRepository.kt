@@ -16,7 +16,7 @@ class MovieDataRepository : DataRepository<List<MovieData>>() {
         return ApiClient.getApiService().movies()
     }
 
-    fun getMovies(): LiveData<DataWrapper<List<MovieData>>> {
+    fun getMovies(): LiveData<DataWrapper> {
         return doRequest()
     }
 }

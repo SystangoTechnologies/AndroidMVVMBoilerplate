@@ -3,9 +3,9 @@ package com.systango.mvvm.data.network
 import androidx.lifecycle.Observer
 
 
-open class ApiObserver<T>(private val changeListener: ChangeListener<T>) :
-    Observer<DataWrapper<T>> {
-    override fun onChanged(tDataWrapper: DataWrapper<T>?) {
+open class ApiObserver (private val changeListener: ChangeListener) :
+    Observer<DataWrapper > {
+    override fun onChanged(tDataWrapper: DataWrapper?) {
         if (tDataWrapper != null) {
             if (tDataWrapper.data != null) {
                 changeListener.onSuccess(tDataWrapper.data!!)
@@ -19,8 +19,8 @@ open class ApiObserver<T>(private val changeListener: ChangeListener<T>) :
         changeListener.onError("Unknown error")
     }
 
-    interface ChangeListener<T> {
-        fun onSuccess(dataWrapper: T)
+    interface ChangeListener {
+        fun onSuccess(dataWrapper: Any)
         fun onException(exception: Exception)
         fun onError(error: String)
     }
