@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A boilerplate project for Android.
+This is an android boilerplate developed with MVVM architecture and Jetpack components.
 
 ## How to use
 
