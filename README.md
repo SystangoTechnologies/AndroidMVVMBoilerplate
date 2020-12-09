@@ -1,43 +1,93 @@
-# Android-MVVM-Boilerplate
+# MVVM Boilerplate
 
-The project will be developed in MVVM architecture with Android Jetpack components.
+## Introduction
 
-### Features
+A boilerplate project for Android.
 
-The project contains the following functionalities-
-- FCM
-- Crashlytics
+## How to use
 
-### Modules
+**Step 1:**
 
-The project contains following separate modules-
-- Social media login
-- Analytics
-- Fastlane
+Download or clone this repo by using the link below:
 
-### Usage
+```
+https://gitlab.com/systango/open-source/android-mvvm-boilerplate
 
-#### Is required
+```
 
-##### In Google login
+## Dependencies Used
 
- [Register an app on Google Developers console](https://www.google.com/search?q=google+developer+console&oq=googe+developer+consol&aqs=chrome.1.69i57j0l7.7011j0j7&sourceid=chrome&ie=UTF-8) after that, you should ensure which the file google-services.json is inside app module
+* Retrofit and Gson converter
+* Life-cycle and View model component
+* Dragger
 
 
-##### In Facebook login
+## Features
 
- [Create an app on Facebook Developers](https://developers.facebook.com/docs/facebook-login/android)
+* MVVM : Data Binding
+* Generic API structure.
+* Generic Folder structure.
+* Commonly used functions
 
- ##Libraries this app uses:
-1.Firebase - https://firebase.google.com/
-2.Fabric - https://fabric.io/dashboard
+## Folder Structure
 
-### License
+```
 
-Copyright 2018 MVVM Boilerplate.
+app
+|- manifest
+    |- AndroidManifest.xml
+|- java
+    |- com.systango.mvvm
+           |- common
+                 |- AppUtil
+                 |- GlideUtils
+           |- dagger
+                 |- ActivityComponent
+                 |- MovieViewModelModule
+           |- data
+                 |- datarepository
+                       |- MovieDataRepository
+                 |- model
+                       |- MovieData 
+                       |- MovieResponseModel
+                 |- network
+                       |- ApiCallback
+                       |- ApiClient
+                       |- ApiInterface
+                       |- ApiObserver
+                       |- DataRepository
+                       |- DataWrapper
+                       |- GenericResponse
+                 |- viewmodel
+                       |- MovieListViewModel
+                       |- SplashViewModel
+           |- scene
+                |- base
+                     |- BackHandlerInterface
+                     |- BaseActivity
+                     |- BaseFragment
+             
+                |- home
+                     |- HomeFragment
+                |- splash
+                     |- SplashActivity
+                     
+                     |-MainActivity
+        |- com.systango.mvvm
+        |- com.systango.mvvm
+        
+|- java (generated) 
+|- res 
+    |- drawable
+    |- layout
+    |- mipmap
+    |- values
+|- res(generated)  
+|- Gradle Scripts
 
-Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file distributed with this work for additional information regarding copyright ownership. The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+```
 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+## Conclusion
+
+This boilerplate project is based on  Kotlin with MVVM designing pattern. Supported on  android devices.Activity and fragments are managed along with callbacks,proper life cycle of activity and fragment has been managed into it along with API Integration.Also common functions are added into it.
