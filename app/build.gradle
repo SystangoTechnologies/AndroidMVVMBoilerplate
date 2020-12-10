@@ -1,0 +1,128 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'io.fabric'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        applicationId "com.systango.mvvm"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner rootProject.ext.testInstrumentationRunner
+
+        manifestPlaceholders = [fabricApiKey: "6cab916b68d33ff6c64da657ea06859792c07969"]
+    }
+
+    flavorDimensions "environment"
+    productFlavors {
+        dev {
+            dimension "environment"
+            buildConfigField 'String', 'SAMPLE_BUILD_CONFIG_FIELD', '"build-config-value-here"'
+            versionNameSuffix "-dev"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "MVVM Boilerplate - dev"
+            buildConfigField "String", 'BASE_URL', '"https://s3.eu-west-2.amazonaws.com/ios-movies/"'
+        }
+
+        qa {
+            dimension "environment"
+            buildConfigField 'String', 'SAMPLE_BUILD_CONFIG_FIELD', '"build-config-value-here"'
+            versionNameSuffix "-test"
+            applicationIdSuffix ".test"
+            resValue "string", "app_name", "MVVM Boilerplate - test"
+            buildConfigField "String", 'BASE_URL', '"https://s3.eu-west-2.amazonaws.com/ios-movies/"'
+        }
+
+        staging {
+            dimension "environment"
+            buildConfigField 'String', 'SAMPLE_BUILD_CONFIG_FIELD', '"build-config-value-here"'
+            versionNameSuffix "-staging"
+            applicationIdSuffix ".staging"
+            resValue "string", "app_name", "MVVM Boilerplate - stage"
+            buildConfigField "String", 'BASE_URL', '"https://s3.eu-west-2.amazonaws.com/ios-movies/"'
+        }
+
+        prod {
+            dimension "environment"
+            buildConfigField 'String', 'SAMPLE_BUILD_CONFIG_FIELD', '"build-config-value-here"'
+            resValue "string", "app_name", "MVVM Boilerplate"
+            buildConfigField "String", 'BASE_URL', '"https://s3.eu-west-2.amazonaws.com/ios-movies/"'
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'Boolean', 'IS_DEBUG', 'true'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'Boolean', 'IS_DEBUG', 'false'
+        }
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+    implementation 'com.intuit.ssp:ssp-android:1.0.5'/*textSize*/
+    implementation 'com.intuit.sdp:sdp-android:1.0.5'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+
+
+    //Unit testing
+    testImplementation rootProject.ext.junit
+    androidTestImplementation rootProject.ext.androidTestRunner
+    androidTestImplementation rootProject.ext.espresso
+
+    //UI and Support
+    implementation rootProject.ext.constraintLayout
+    implementation rootProject.ext.appCompat
+    implementation rootProject.ext.androidXCore
+
+    // crash report module (crashlytics)
+    implementation rootProject.ext.crashlytics
+
+    // firebase cloud messaging
+    implementation rootProject.ext.fcm
+
+    //life-cycle and view model component
+    implementation rootProject.ext.lifeCycleExt
+
+    // retrofit and gson converter
+    implementation rootProject.ext.retrofit
+    implementation rootProject.ext.retrofitGsonConverter
+    implementation rootProject.ext.okhttpLog
+    implementation rootProject.ext.dagger
+    kapt rootProject.ext.daggerKapt
+}
+
+apply plugin: 'com.google.gms.google-services'
