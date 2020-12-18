@@ -80,6 +80,10 @@ android {
     dataBinding {
         enabled = true
     }
+    lintOptions {
+        baseline file("lint-baseline.xml")
+        //checkDependencies = false
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -112,7 +116,7 @@ dependencies {
     implementation rootProject.ext.crashlytics
 
     // firebase cloud messaging
-    implementation rootProject.ext.fcm
+//    implementation rootProject.ext.fcm
 
     //life-cycle and view model component
     implementation rootProject.ext.lifeCycleExt
@@ -125,4 +129,3 @@ dependencies {
     kapt rootProject.ext.daggerKapt
 }
 
-apply plugin: 'com.google.gms.google-services'
