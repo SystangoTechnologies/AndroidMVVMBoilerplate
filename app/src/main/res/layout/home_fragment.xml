@@ -6,12 +6,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.systango.mvvm.scene.home.HomeFragment">
-
     <Button
+        android:id="@+id/btnAuthLogin"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Normal Login"
+        />
+    <Button
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
         android:id="@+id/btnApiCall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
         android:text="Get Response"
        />
     <ScrollView

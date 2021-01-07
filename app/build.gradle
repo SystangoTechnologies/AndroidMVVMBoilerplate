@@ -123,6 +123,7 @@ dependencies {
     implementation rootProject.ext.okhttpLog
     implementation rootProject.ext.dagger
     kapt rootProject.ext.daggerKapt
+
 }
 
 apply plugin: 'com.google.gms.google-services'
