@@ -12,14 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".scene.login.LogInActivity"></activity>
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="${fabricApiKey}" />
 
-        <activity android:name=".scene.MainActivity">
-
-        </activity>
+        <activity android:name=".scene.MainActivity"></activity>
         <activity android:name=".scene.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
