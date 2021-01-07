@@ -1,5 +1,6 @@
 package com.systango.mvvm.scene.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.systango.mvvm.data.network.ApiObserver
 import com.systango.mvvm.data.viewmodel.MovieListViewModel
 import com.systango.mvvm.databinding.HomeFragmentBinding
 import com.systango.mvvm.scene.base.BaseFragment
+import com.systango.mvvm.scene.socialLogin.SocialLoginActivity
 import com.systango.mvvm.utils.Logger
 import kotlinx.android.synthetic.main.home_fragment.*
 import javax.inject.Inject
@@ -43,6 +45,10 @@ class HomeFragment : BaseFragment(), ApiObserver.ChangeListener {
         component.inject(this)// Initialized the dagger component
         btnApiCall.setOnClickListener {
             movieListViewModel!!.getMovies().observe(this, apiObserver)// api call to get the movies
+        }
+        btnSocialLogin.setOnClickListener {
+            startActivity(Intent(activity, SocialLoginActivity::class.java))
+
         }
     }
 
