@@ -4,6 +4,7 @@
 
 This is an android boilerplate developed with MVVM architecture and Jetpack components.
 
+<<<<<<< HEAD
 ## How to use
 
 **Step 1:**
@@ -15,6 +16,17 @@ https://gitlab.com/systango/open-source/android-mvvm-boilerplate
 
 ```
 
+=======
+Download or clone this repo by using the link below:
+
+```
+git clone https://gitlab.com/systango/open-source/android-mvvm-boilerplate
+
+```
+
+To run the app on device press Shift + F10
+
+>>>>>>> 66d8c4cf717e7e1d711edc25371d05ae0e2ad982
 ## Dependencies Used
 
 * Retrofit and Gson converter

@@ -1,1 +1,2 @@
+include ':sociallogin'
 include ':app'
