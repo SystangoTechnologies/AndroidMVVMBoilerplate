@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.firebase.FirebaseApp
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.systango.mvvm.R
 import com.systango.mvvm.data.viewmodel.SplashState
 import com.systango.mvvm.data.viewmodel.SplashViewModel
@@ -19,6 +21,8 @@ class SplashActivity : BaseActivity() {
         }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        FirebaseApp.initializeApp(this@SplashActivity)
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
         val splashViewModel = ViewModelProviders.of(this).get(SplashViewModel::class.java)
         splashViewModel.liveData.observe(this, Observer {
             when (it) {
@@ -35,49 +39,3 @@ class SplashActivity : BaseActivity() {
     }
 }
 
-
-//    private lateinit var splashViewModel: SplashViewModel
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_splash)
-//
-//        initViewModel()
-//        observeSplashLiveData()
-//    }
-//
-//    private fun initViewModel() {
-//        splashViewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
-//    }
-//
-//    private fun observeSplashLiveData() {
-//        splashViewModel.initSplashScreen()
-//        val observer = Observer<SplashModel> {
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
-//        splashViewModel.liveData.observe(this, observer)
-//    }
-
-
-
-
-
-
-//fun initfun() {
-//    object : CountDownTimer(2000, 500) {
-//        override fun onTick(millisUntilFinished: Long) {
-//
-//        }
-//
-//        override fun onFinish() {
-//            switchToActivity();
-//        }
-//    }.start()
-//}
-//
-//private fun switchToActivity() {
-//    startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-//
-//}
